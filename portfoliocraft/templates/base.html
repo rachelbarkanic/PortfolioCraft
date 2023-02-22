@@ -11,25 +11,24 @@
     <title>PortfolioCraft Home</title>
 </head>
 <body>
-    <nav class="navbar navbar-dark bg-dark navbar-expand-lg">
-        <div class="container-fluid">
-            <a class="navbar-brand" href="#">PortfolioCraft</a>
-            <div class="collapse navbar-collapse">
-                <div class="navbar-nav">
-                    <a class="nav-link" href="{{ url_for('core.index') }}">Home</a>
-                    <a class="nav-link" href="{{ url_for('core.info') }}">About</a>
-                    <a class="nav-link" href="#">Resume</a>
-                    <a class="nav-link" href="#">Projects</a>
-                    
-                    <a class="nav-link" href="#">Log Out</a>
-                    
-                    <a class="nav-link" href="#">Log In</a>
-                    <a class="nav-link" href="#">Register</a>
-                    
-                </div>
-            </div>
-        </div>
-    </nav>
+    <ul class="nav">
+
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('core.index') }}">Home</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{{ url_for('core.info') }}">About Us</a>
+        </li>
+          {% if current_user.is_authenticated %}
+          <li class="nav-link"><a href="{{ url_for('users.logout') }}">Log Out</a></li>
+          <li class="nav-link"><a href="{{ url_for('users.account') }}">Account</a></li>
+          <li class="nav-link"><a href="#">Post Project</a></li>
+          {% else %}
+          <li class="nav-link"><a href="{{ url_for('users.login') }}">Log In</a></li>
+          <li class="nav-link"><a href="{{ url_for('users.register') }}">Register</a></li>
+          {% endif %}
+      
+      </ul>
 {% block body %}
     
 {% endblock %}

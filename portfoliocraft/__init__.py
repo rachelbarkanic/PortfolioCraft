@@ -6,23 +6,19 @@ from flask_login import LoginManager
 
 app = Flask(__name__)
 
+app.config['SECRET_KEY'] = 'secret'
+
 ####################
 ## DATABASE SETUP ##
 ####################
 
 #may need to come back to this if it isn't working
-def connect_to_db(flask_app, db_uri="postgresql:///portfoliocraft", echo=True):
-    flask_app.config["SQLALCHEMY_DATABASE_URI"] = db_uri
-    flask_app.config["SQLALCHEMY_ECHO"] = echo
-    flask_app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+basedir = os.path.abspath(os.path.dirname(__file__))
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
+app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
-    db.app = flask_app
-    db.init_app(flask_app)
-
-    print("Connected to the db!")
-
-db = SQLAlchemy()
-Migrate(app, db)
+db = SQLAlchemy(app)
+Migrate(app,db)
 
 
 #########################

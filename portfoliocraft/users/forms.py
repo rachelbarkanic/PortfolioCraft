@@ -13,7 +13,7 @@ class LoginForm(FlaskForm):
     submit = SubmitField('Log In')
 
 
-class RegistrationForm():
+class RegistrationForm(FlaskForm):
     first_name = StringField('First Name',validators=[DataRequired()])
     last_name = StringField('Last Name', validators=[DataRequired()])
     username = StringField('Username', validators=[DataRequired()])
@@ -29,6 +29,8 @@ class RegistrationForm():
     def validate_username(self, username):
         if User.query.filter_by(username = self.username.data).first():
             raise ValidationError('This username is already being used')
+
+
 
 class UpdateUserForm(FlaskForm):
     first_name = StringField('First Name',validators=[DataRequired()])

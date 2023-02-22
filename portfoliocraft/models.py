@@ -39,9 +39,8 @@ class Project(db.Model):
 
     __tablename__ = 'projects'
     
-    users = db.relationship(User)
 
-    id = db.Coulmn(db.Integer, autoincrement = True, primary_key = True)
+    id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     title = db.Column(db.String(255), nullable = False)
