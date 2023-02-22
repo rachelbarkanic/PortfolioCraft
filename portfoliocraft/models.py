@@ -1,6 +1,11 @@
-from portfoliocraft import db
+from portfoliocraft import db, login_manager
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from datetime import datetime
+
+@login_manager.user_loader
+def load_user(user_id):
+    return User.query.get(user_id)
 
 class User(db.Model, UserMixin):
     
@@ -31,4 +36,25 @@ class User(db.Model, UserMixin):
         return f'Username {self.username}'
 
 class Project(db.Model):
-    pass
+
+    __tablename__ = 'projects'
+    
+    users = db.relationship(User)
+
+    id = db.Coulmn(db.Integer, autoincrement = True, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    title = db.Column(db.String(255), nullable = False)
+    description = db.Column(db.Text(255), nullable = False)
+    screenshot = db.Column(db.String(255), nullable = False, default = 'default_screenshot.png')
+    demo_link = db.Column(db.String(255), nullable = True)
+    github_link = db.Column(db.String(255), nullable = True)
+    
+
+    def __init__(self, title, description, user_id):
+        self.title = title
+        self.description = description
+        self.user_id = user_id
+    
+    def __repr__(self):
+        return f'Project ID: {self.id}, Title: {self.title}'
+
