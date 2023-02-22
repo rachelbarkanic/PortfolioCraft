@@ -43,6 +43,7 @@ class Project(db.Model):
 
     id = db.Coulmn(db.Integer, autoincrement = True, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     title = db.Column(db.String(255), nullable = False)
     description = db.Column(db.Text(255), nullable = False)
     screenshot = db.Column(db.String(255), nullable = False, default = 'default_screenshot.png')

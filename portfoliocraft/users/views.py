@@ -9,7 +9,7 @@ users = Blueprint('users', __name__)
 
 @users.route('/register', methods=['GET', 'POST'])
 def register():
-    
+
     form = RegistrationForm()
     
     if form.validate_on_submit():
@@ -52,3 +52,40 @@ def logout():
     '''log user out '''
     logout_user()
     return redirect(url_for('core.index'))
+
+
+@users.route('/account', methods=['GET', 'POST'])
+@login_required
+def account():
+
+    form = UpdateUserForm()
+    if form.validate_on_submit():
+        if form.picture.data:
+            username = current_user.username
+            pic = add_profile_pic(form.picture.data, username)
+            current_user.profile_image = pic
+
+        current_user.first_name = form.first_name.data
+        current_user.last_name = form.last_name.data
+        current_user.username = form.username.data
+        current_user.email = form.email.data
+        db.session.commit()
+        flash('Your Account Information Has Been Updated!')
+        return redirect(url_for('users.account'))
+
+    elif request.method == 'GET':
+        form.first_name.data = current_user.first_name
+        form.last_name.data = current_user.last_name
+        form.username.data = current_user.username
+        form.email.data = current_user.email
+    
+    profile_image = url_for('static', filename='profile_pics/'+current_user.profile_image)
+    return render_template('account.html', profile_image = profile_image, form = form)
+
+@users.route('/<username>')
+def user_projects(username):
+    page = request.args.get('page', 1, type=int)
+    user = User.query.filter_by(username = username).first_or_404
+    projects = Project.query.filter_by(author = user).order_by(Project.date.desc()).paginate(page = page, per_page = 5)
+
+    return render_template('user_projects.html', projects = projects, user = user)
