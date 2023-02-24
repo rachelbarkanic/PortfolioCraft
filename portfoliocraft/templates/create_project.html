@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+
+{% block body %}
+
+<div class="container">
+    <form class="form-group" method="POST">
+        {{ form.hidden_tag() }}
+
+        <div class="form-group">
+            {{ form.title.label(class='form-control-label') }}
+            {{ form.title(class='form-control form-control-lg') }}
+        </div>
+        <div class="form-group">
+            {{ form.description.label(class='form-control-label') }}
+            {{ form.description(class='form-control form-control-lg') }}
+        </div>
+        <div class="form-group">
+            {{ form.screenshot.label(class='form-control-label') }}
+            {{ form.screenshot(class='form-control form-control-lg') }}
+        </div>
+        <div class="form-group">
+            {{ form.demo_link.label(class='form-control-label') }}
+            {{ form.demo_link(class='form-control form-control-lg') }}
+        </div>
+        <div class="form-group">
+            {{ form.github_link.label(class='form-control-label') }}
+            {{ form.github_link(class='form-control form-control-lg') }}
+        </div>
+        <div class="form-group">
+            {{ form.submit(class='btn btn-outline-info') }}
+        </div>
+    </form>
+
+</div>
+
+{% endblock %}

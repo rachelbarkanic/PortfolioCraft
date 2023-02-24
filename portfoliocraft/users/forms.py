@@ -47,7 +47,7 @@ class UpdateUserForm(FlaskForm):
     
     def validate_username(self, username):
         if User.query.filter_by(username = self.username.data).first():
-            raise ValidationError('This username is already being used')
+            raise ValidationError('This username is already being used, try again!')
 
 
 ######## NEED PROJECT FORM #########

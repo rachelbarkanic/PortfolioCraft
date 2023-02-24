@@ -46,13 +46,18 @@ class Project(db.Model):
     title = db.Column(db.String(255), nullable = False)
     description = db.Column(db.Text(255), nullable = False)
     screenshot = db.Column(db.String(255), nullable = False, default = 'default_screenshot.png')
-    demo_link = db.Column(db.String(255), nullable = True)
-    github_link = db.Column(db.String(255), nullable = True)
+    demo_link = db.Column(db.String(255), nullable = False)
+    github_link = db.Column(db.String(255), nullable = False)
+
+    users = db.relationship(User)
     
 
-    def __init__(self, title, description, user_id):
+    def __init__(self, title, description, screenshot, demo_link, github_link, user_id):
         self.title = title
         self.description = description
+        self.screenshot = screenshot
+        self.demo_link = demo_link
+        self.github_link = github_link
         self.user_id = user_id
     
     def __repr__(self):

@@ -13,7 +13,7 @@
 {% for project in projects.items %}
 
 <h2> <a href="{{url_for('projects.project', project_id = project.id)}}">{{project.title}}</a></h2>
-Created By: <a href="{{url_for('users.user_project', username = project.author.username)}}"> {{project.author.username}} </a>
+Created By: <a href="{{url_for('users.user_projects', username = project.author.username)}}"> {{project.author.username}} </a>
 
 <p class="text-muted">Published on: {{project.date.strftime('%Y-%m-%d')}}</p>
 <br>
