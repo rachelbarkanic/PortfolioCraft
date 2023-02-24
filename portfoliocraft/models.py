@@ -38,7 +38,8 @@ class User(db.Model, UserMixin):
 class Project(db.Model):
 
     __tablename__ = 'projects'
-    
+
+    user = db.relationship("User", backref="author")
 
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
@@ -49,7 +50,6 @@ class Project(db.Model):
     demo_link = db.Column(db.String(255), nullable = False)
     github_link = db.Column(db.String(255), nullable = False)
 
-    users = db.relationship(User)
     
 
     def __init__(self, title, description, screenshot, demo_link, github_link, user_id):

@@ -33,10 +33,10 @@ class RegistrationForm(FlaskForm):
 
 
 class UpdateUserForm(FlaskForm):
-    first_name = StringField('First Name',validators=[DataRequired()])
-    last_name = StringField('Last Name', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
+    first_name = StringField('First Name')
+    last_name = StringField('Last Name')
+    username = StringField('Username')
+    email = StringField('Email', validators=[Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
     submit = SubmitField('Update User Info')
 
@@ -50,4 +50,3 @@ class UpdateUserForm(FlaskForm):
             raise ValidationError('This username is already being used, try again!')
 
 
-######## NEED PROJECT FORM #########
