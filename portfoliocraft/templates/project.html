@@ -4,16 +4,20 @@
 
 <div class="jumbotron">
     <h1>{{ project.title }}</h1>
+    
     <h2>Created By: {{ project.author.username }}</h2>
-    <h3>Posted: {{ project.date.strftime('%B %d, %Y') }}</h3>
+    
     <p>{{ project.description }}</p>
+    <h3>Github Link: {{project.github_link}}</h3>
+    <h3>Demo Link: {{project.demo_link}}</h3>
 
     <!-- NEED TO ADD PIC, DEMO, GITHUB LINKS -->
 {% if project.author == current_user %}
 <div>
-    <a href="{{url_for('projects.update', project_id = project.id)}}">Update Project</a>
+    <button type="button" class="btn btn-warning"><a id="update-btn" href="{{url_for('projects.update', project_id = project.id)}}">Update</a></button>
     <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#del_modal">Delete</button>
 </div>
+<h6>Posted: {{ project.date.strftime('%B %d, %Y') }}</h6>
 
 {% endif %}
 </div>

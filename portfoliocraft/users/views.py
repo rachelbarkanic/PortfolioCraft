@@ -91,7 +91,7 @@ def user_projects(username):
     page = request.args.get('page', 1, type=int)
     user = User.query.filter_by(username = username).first_or_404
 
-    projects = Project.query.filter_by(user = user).order_by(Project.date.desc()).paginate(page = page, per_page = 5)
+    projects = Project.query.filter_by(author = user).order_by(Project.date.desc()).paginate(page = page, per_page = 5)
     # might have issues here
 
     return render_template('user_projects.html', projects = projects, user = user)

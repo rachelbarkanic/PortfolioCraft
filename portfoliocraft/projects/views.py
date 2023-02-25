@@ -16,7 +16,7 @@ def create_project():
 
         project = Project(title = form.title.data,
                     description = form.description.data,
-                   
+                    screenshot = form.screenshot.data,
                     demo_link = form.demo_link.data,
                     github_link = form.github_link.data,
                     user_id = current_user.id)
@@ -49,7 +49,7 @@ def update(project_id):
 
         project.title = form.title.data,
         project.description = form.description.data,
-        
+        project.screenshot = form.screenshot.data,
         project.demo_link = form.demo_link.data,
         project.github_link = form.github_link.data
 
@@ -60,7 +60,7 @@ def update(project_id):
     elif request.method == 'GET':
          form.title.data = project.title
          form.description.data = project.description
-         
+         form.screenshot.data = project.screenshot
          form.demo_link.data = project.demo_link
          form.github_link.data = project.github_link
 
