@@ -1,7 +1,7 @@
 from flask import render_template, url_for, flash, redirect, request, Blueprint, abort
 from flask_login import current_user, login_required
 from portfoliocraft import db
-from portfoliocraft.models import Project
+from portfoliocraft.models import Project, User
 from portfoliocraft.projects.forms import ProjectForm
 
 projects = Blueprint('projects', __name__)
@@ -16,11 +16,10 @@ def create_project():
 
         project = Project(title = form.title.data,
                     description = form.description.data,
-                    screenshot = form.screenshot.data,
+                   
                     demo_link = form.demo_link.data,
                     github_link = form.github_link.data,
-                    user_id = current_user.id,
-                    )
+                    user_id = current_user.id)
         db.session.add(project)
         db.session.commit()
         flash('Project Added!!')
@@ -50,7 +49,7 @@ def update(project_id):
 
         project.title = form.title.data,
         project.description = form.description.data,
-        project.screenshot = form.screenshot.data,
+        
         project.demo_link = form.demo_link.data,
         project.github_link = form.github_link.data
 
@@ -61,7 +60,7 @@ def update(project_id):
     elif request.method == 'GET':
          form.title.data = project.title
          form.description.data = project.description
-         form.screenshot.data = project.screenshot
+         
          form.demo_link.data = project.demo_link
          form.github_link.data = project.github_link
 

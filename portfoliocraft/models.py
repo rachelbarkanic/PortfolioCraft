@@ -39,23 +39,22 @@ class Project(db.Model):
 
     __tablename__ = 'projects'
 
-    user = db.relationship("User", backref="author")
+    
 
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     title = db.Column(db.String(255), nullable = False)
     description = db.Column(db.Text(255), nullable = False)
-    screenshot = db.Column(db.String(255), nullable = False, default = 'default_screenshot.png')
+   
     demo_link = db.Column(db.String(255), nullable = False)
     github_link = db.Column(db.String(255), nullable = False)
 
-    
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
 
-    def __init__(self, title, description, screenshot, demo_link, github_link, user_id):
+    def __init__(self, title, description, demo_link, github_link, user_id):
         self.title = title
         self.description = description
-        self.screenshot = screenshot
+        
         self.demo_link = demo_link
         self.github_link = github_link
         self.user_id = user_id
