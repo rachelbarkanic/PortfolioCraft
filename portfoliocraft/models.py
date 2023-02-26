@@ -39,13 +39,11 @@ class Project(db.Model):
 
     __tablename__ = 'projects'
 
-    
-
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     title = db.Column(db.String(255), nullable = False)
     description = db.Column(db.Text(255), nullable = False)
-    screenshot = db.Column(db.String(255), nullable = False)
+    screenshot = db.Column(db.String(255), nullable = False, default = 'default_screenshot.png')
     demo_link = db.Column(db.String(255), nullable = False)
     github_link = db.Column(db.String(255), nullable = False)
 
