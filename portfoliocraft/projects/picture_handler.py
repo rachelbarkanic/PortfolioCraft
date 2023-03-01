@@ -2,11 +2,11 @@ import os
 from PIL import Image
 from flask import url_for, current_app
 
-def add_screenshot(pic_upload, username):
+def add_screenshot(pic_upload, project):
 
     filename = pic_upload.filename
     ext_type = filename.split('.')[-1]
-    storage_filename = str(username)+'.'+ext_type
+    storage_filename = str(project)+'.'+ext_type
 
     filepath = os.path.join(current_app.root_path, 'static/screenshots', storage_filename)
 

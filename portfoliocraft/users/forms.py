@@ -1,11 +1,13 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo
+from wtforms.validators import DataRequired, Email, EqualTo, InputRequired
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 
 from flask_login import current_user
 from portfoliocraft.models import User
+
+
 
 class LoginForm(FlaskForm):
     email = StringField('Email', validators=[DataRequired(), Email()])
@@ -14,20 +16,22 @@ class LoginForm(FlaskForm):
 
 
 class RegistrationForm(FlaskForm):
-    first_name = StringField('First Name',validators=[DataRequired()])
-    last_name = StringField('Last Name', validators=[DataRequired()])
-    username = StringField('Username', validators=[DataRequired()])
-    email = StringField('Email', validators=[DataRequired(), Email()])
-    password = PasswordField('Password', validators=[DataRequired(), EqualTo('pass_confirm', message= 'Passwords must match!')])
-    pass_confirm = PasswordField('Confirm Password', validators=[DataRequired()])
+    first_name = StringField('First Name',validators=[InputRequired()])
+    last_name = StringField('Last Name', validators=[InputRequired()])
+    username = StringField('Username', validators=[InputRequired()])
+    email = StringField('Email', validators=[InputRequired(), Email()])
+    password = PasswordField('Password', validators=[InputRequired(), EqualTo('pass_confirm', message= 'Passwords must match!')])
+    pass_confirm = PasswordField('Confirm Password', validators=[InputRequired()])
     submit = SubmitField('Create User')
 
-    def validate_email(self, email):
-        if User.query.filter_by(email = self.email.data).first():
+    def validate_email(self, field):
+        if User.query.filter_by(email = field.data).first():
             raise ValidationError('This email is already being used, try another!')
+
+            # put these in views instead
     
-    def validate_username(self, username):
-        if User.query.filter_by(username = self.username.data).first():
+    def validate_username(self, field):
+        if User.query.filter_by(username = field.data).first():
             raise ValidationError('This username is already being used')
 
 
@@ -37,7 +41,7 @@ class UpdateUserForm(FlaskForm):
     last_name = StringField('Last Name')
     username = StringField('Username')
     email = StringField('Email', validators=[Email()])
-    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png'])])
+    picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
     submit = SubmitField('Update User Info')
 
 
@@ -50,3 +54,6 @@ class UpdateUserForm(FlaskForm):
             raise ValidationError('This username is already being used, try again!')
 
 
+class ResumeForm(FlaskForm):
+    resume = FileField('Add Your Resume', validators=[InputRequired(), FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'pdf'])])
+    submit = SubmitField('Upload!')

@@ -12,3 +12,4 @@ class ProjectForm(FlaskForm):
     demo_link = StringField('Demo Link', validators=[DataRequired()])
     github_link = StringField('Github Link', validators=[DataRequired()])
     submit = SubmitField('Add Your Project!')
+

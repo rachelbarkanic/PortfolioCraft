@@ -4,13 +4,13 @@
 
 <div class="jumbotron">
     <div align='center'>
-        <h1 >Edit {{current_user.first_name}}'s Information </h1>
+        <h1 >Edit {{current_user.first_name}}'s Account </h1>
         <img class="profile-pic" align='center' src="{{ url_for('static', filename='profile_pics/' + current_user.profile_image) }}">
         <p>{{ current_user.email }}</p>
 </div>
 
 <div class="container">
-    <form method="POST" action="" enctype="multipart/form-data">
+    <form method="POST" action="/account" enctype="multipart/form-data">
         {{ form.hidden_tag() }}
         <div class="form-group">
         {{ form.first_name.label(class='form-group') }} 

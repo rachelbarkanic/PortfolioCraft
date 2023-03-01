@@ -2,7 +2,18 @@
 
 {% block body %}
 
+<form action="{{ url_for('users.upload_file') }}" enctype="multipart/form-data" method="POST">
+    <input name="img" type="file"/>
+    <input type="submit"/>
+</form>
+
+{% if img %}
+<h1>Rendered Image</h1>
+<img src="{{url_for('static', filename='resumes/' + img)}}">
+{% else %}
+<h1>Image will render here...</h1>
+{% endif %}
 
 
 
-{% endblock %}
+{% endblock %}ß

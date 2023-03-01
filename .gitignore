@@ -1,3 +1,4 @@
 env
 config.sh
 migrations
+node_modules

@@ -40,6 +40,7 @@ class Project(db.Model):
     __tablename__ = 'projects'
 
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
     date = db.Column(db.DateTime, nullable = False, default = datetime.utcnow)
     title = db.Column(db.String(255), nullable = False)
     description = db.Column(db.Text(255), nullable = False)
@@ -47,7 +48,7 @@ class Project(db.Model):
     demo_link = db.Column(db.String(255), nullable = False)
     github_link = db.Column(db.String(255), nullable = False)
 
-    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    
 
     def __init__(self, title, description, screenshot, demo_link, github_link, user_id):
         self.title = title
@@ -60,3 +61,10 @@ class Project(db.Model):
     def __repr__(self):
         return f'Project ID: {self.id}, Title: {self.title}'
 
+class Resume(db.Model):
+
+    __tablename__ = 'resumes'
+
+    id = db.Column(db.Integer, autoincrement = True, primary_key = True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable = False)
+    
