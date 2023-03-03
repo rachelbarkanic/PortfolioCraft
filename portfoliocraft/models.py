@@ -51,6 +51,8 @@ class Project(db.Model):
     demo_link = db.Column(db.String(255), nullable = False)
     github_link = db.Column(db.String(255), nullable = False)
 
+    # want to add deployed boolean option with link if deployed and linked-in link
+
 
     def __init__(self, title, description, demo_link, github_link, user_id):
         self.title = title

@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 
-<div class="container">
-{{user.resume}}
+<div class="container" align="center">
+
+    <img src="{{url_for('static', filename = 'resumes/'+user.resume)}}" alt="resume">
+
 </div>
 
 {% endblock %}

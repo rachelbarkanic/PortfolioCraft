@@ -1,20 +1,28 @@
 {% extends 'base.html' %}
 
 {% block body %}
+<br><br><br>
+<div class="container" align="center">
+    <h1>Welcome to the page for {{ user.first_name }} {{ user.last_name }}</h1>
+    <br>
+    <img class="profile-pic" src="{{url_for('static', filename = 'profile_pics/'+user.profile_image)}}">
+</div>
 
-<div class="container">
-    <div class="jumbotron">
-        <div align="center">
-            <h1>Welcome to the page for {{ user.first_name }} {{ user.last_name }}</h1>
-            <br>
-            <img class="profile-pic" src="{{url_for('static', filename = 'profile_pics/'+user.profile_image)}}">
+
+<div class="flex-container" align="center">
+
+    
+
+    <div class="flex-child">
+        <h1>Resume</h1>
             <div style="width: 18rem;"><img class="card-img-top" src="{{url_for('static', filename = 'resumes/'+user.resume)}}" alt="resume">
-        </div>
+                <br>
+                <button type="button" class="btn btn-danger"><a id="update-btn" href="{{url_for('users.view_resume', user_id = user.id)}}">View</a></button>
         </div>
     </div>
 
     
-<div id="projects-and-resume">
+<div class="flex-child">
     <h1>Projects</h1>
 {% for project in projects.items %}
 
@@ -28,7 +36,7 @@
     </div>
 
 {% endfor %}
-<br>
+</div>
     
 
 <nav aria-label="Page Navigation example">

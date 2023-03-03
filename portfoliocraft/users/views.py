@@ -27,8 +27,6 @@ def register():
         db.session.commit()
         flash('Thanks for registering! Now you can log in!')
         return redirect(url_for('users.login'))
-    else:
-        flash('There was an error, please try again!')
 
     return render_template('register.html', form = form)
 
@@ -50,7 +48,7 @@ def login():
 
             return redirect(next)
         else:
-            flash('Something went wrong')
+            flash('Something went wrong, please try again!')
             return redirect(url_for('users.login'))
 
     return render_template('login.html', form = form)
@@ -134,4 +132,10 @@ def upload_file():
     return render_template('resume.html')
     # need form = form in render once figured out
 
+@users.route('/resume/<int:user_id>')
+def view_resume(user_id):
+
+    user = User.query.get_or_404(user_id)
+
+    return render_template('user_resume.html', user=user, title=user.username, resume = user.resume)
 

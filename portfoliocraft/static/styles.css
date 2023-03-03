@@ -72,3 +72,19 @@ body {
 #port-nav {
     color:#f4a261;
 }
+
+.flex-container {
+    display: flex;
+}
+
+.flex-child {
+    flex: 1;
+}
+
+.flex-child:first-child {
+    margin-right: 20px;
+}
+
+#project-screenshot {
+
+}
