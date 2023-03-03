@@ -38,8 +38,12 @@
         </div>
         <br>
 
-        {{ form.submit(class='btn btn-warning') }}
+        {{ form.submit(class='btn btn-info') }}
+
+        <button class="btn btn-danger"><a class="resume-btn" href="{{url_for('users.upload_file')}}">Add Your Resume Here</a></button>
     </form>
+    <br>
+    
 </div>
 
 {% endblock %}

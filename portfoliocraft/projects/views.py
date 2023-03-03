@@ -3,6 +3,7 @@ from flask_login import current_user, login_required
 from portfoliocraft import db
 from portfoliocraft.models import Project, User
 from portfoliocraft.projects.forms import ProjectForm
+from portfoliocraft.projects.screenshot_handler import screenshot_upload
 
 projects = Blueprint('projects', __name__)
 
@@ -14,15 +15,24 @@ def create_project():
 
     if form.validate_on_submit():
 
+
         project = Project(title = form.title.data,
                     description = form.description.data,
-                    screenshot = form.screenshot.data,
                     demo_link = form.demo_link.data,
                     github_link = form.github_link.data,
                     user_id = current_user.id)
+
         db.session.add(project)
         db.session.commit()
-        flash('Project Added!!')
+
+        if form.screenshot.data:
+            screenshot = project.id
+            pic = screenshot_upload(form.screenshot.data, screenshot)
+            project.screenshot = pic
+        
+        db.session.commit()
+
+
         return redirect(url_for('core.index'))
     
     return render_template('create_project.html', form = form)
@@ -31,7 +41,7 @@ def create_project():
 @projects.route('/<int:project_id>')
 def project(project_id):
     project = Project.query.get_or_404(project_id)
-    return render_template('project.html', title=project.title, date = project.date, project = project)
+    return render_template('project.html', title=project.title, date = project.date, project = project, screenshot = project.screenshot)
 
 
 #UPDATE
@@ -77,5 +87,4 @@ def delete_project(project_id):
     
     db.session.delete(project)
     db.session.commit()
-    flash('Project Deleted!')
     return redirect(url_for('core.index'))

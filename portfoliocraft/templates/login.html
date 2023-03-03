@@ -1,6 +1,10 @@
 {% extends 'base.html' %}
 {% block body %}
 
+
+
+<div class="row align-items-center" align="center" style="height: 100vh;">
+    <div class="mx-auto col-10 col-md-8 col-lg-6">
 <form method="POST">
     {{ form.hidden_tag() }}
     {{ form.email.label }} {{ form.email() }}
@@ -9,5 +13,8 @@
     <br>
     {{ form.submit() }}
 </form>
+</div>
+</div>
+
 
 {% endblock %}

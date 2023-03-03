@@ -10,4 +10,65 @@
 
 body {
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #e9c46a;
+    color: #2a9d8f;
+}
+
+.jumbotron {
+    background-color: #e9c46a;
+}
+
+.nav-link {
+    color: #2a9d8f;
+}
+
+.nav-link:hover {
+    color: #f4a261;
+}
+
+.resume-btn {
+    color: white;
+}
+
+.resume-btn:hover {
+    color: white;
+}
+
+.form-control {
+    background-color: #f4a261;
+}
+
+.form-control:focus {
+    background-color: #264653;
+    color: white;
+}
+
+.form-control-file {
+    background-color: #f4a261;
+}
+
+.form-control-file:focus {
+    background-color: #264653;
+    color: white;
+}
+
+#back {
+    color: white;
+}
+
+#back:hover {
+    color: white;
+}
+
+#rendered-resume {
+    height: 50%;
+    width: 50%;
+}
+
+#port-nav:hover {
+    color: #2a9d8f;
+}
+
+#port-nav {
+    color:#f4a261;
 }

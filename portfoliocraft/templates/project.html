@@ -6,7 +6,7 @@
     <h1>{{ project.title }}</h1>
     
     <h2>Created By: {{ project.author.username }}</h2>
-    <img src="{{project.screenshot}}" alt="screenshot">
+    <img src="{{url_for('static', filename = 'screenshots/' +project.screenshot)}}" alt="screenshot">
     
     <p>{{ project.description }}</p>
     <a href="{{project.github_link}}"><svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" fill="currentColor" class="bi bi-github" viewBox="0 0 16 16">

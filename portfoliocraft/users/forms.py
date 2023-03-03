@@ -42,18 +42,19 @@ class UpdateUserForm(FlaskForm):
     username = StringField('Username')
     email = StringField('Email', validators=[Email()])
     picture = FileField('Update Profile Picture', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif'])])
+    resume = FileField('Add Your Resume', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'pdf'])])
     submit = SubmitField('Update User Info')
 
 
-    def validate_email(self, email):
-        if User.query.filter_by(email = self.email.data).first():
-            raise ValidationError('This email is already being used, try another!')
+    # def validate_email(self, email):
+    #     if User.query.filter_by(email = self.email.data).first():
+    #         raise ValidationError('This email is already being used, try another!')
     
-    def validate_username(self, username):
-        if User.query.filter_by(username = self.username.data).first():
-            raise ValidationError('This username is already being used, try again!')
+    # def validate_username(self, username):
+    #     if User.query.filter_by(username = self.username.data).first():
+    #         raise ValidationError('This username is already being used, try again!')
 
 
 class ResumeForm(FlaskForm):
-    resume = FileField('Add Your Resume', validators=[InputRequired(), FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'pdf'])])
+    resume = FileField('Add Your Resume', validators=[FileAllowed(['jpg', 'png', 'jpeg', 'gif', 'pdf'])])
     submit = SubmitField('Upload!')

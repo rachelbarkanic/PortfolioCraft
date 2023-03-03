@@ -12,10 +12,13 @@ app.config['SECRET_KEY'] = 'secret'
 ## DATABASE SETUP ##
 ####################
 
-#may need to come back to this if it isn't working
+
 basedir = os.path.abspath(os.path.dirname(__file__))
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + os.path.join(basedir, 'data.sqlite')
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+
+upload_folder = os.path.join('portfoliocraft', 'static', 'resumes')
+app.config['UPLOAD'] = upload_folder
 
 db = SQLAlchemy(app)
 Migrate(app,db)

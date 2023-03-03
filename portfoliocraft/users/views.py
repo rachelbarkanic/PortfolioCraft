@@ -2,10 +2,11 @@ import os
 from flask import render_template, url_for, flash, redirect, request, Blueprint, session, send_from_directory
 from flask_login import login_user, current_user, logout_user, login_required
 from werkzeug.utils import secure_filename
-from portfoliocraft import db, app
+from portfoliocraft import db, app, upload_folder
 from portfoliocraft.models import User, Project
 from portfoliocraft.users.forms import RegistrationForm, LoginForm, UpdateUserForm, ResumeForm
 from portfoliocraft.users.picture_handler import add_profile_pic
+
 
 
 users = Blueprint('users', __name__)
@@ -106,24 +107,31 @@ def user_projects(username):
     user = User.query.filter_by(username = username).first_or_404()
 
     projects = Project.query.filter_by(author = user).order_by(Project.date.desc()).paginate(page = page, per_page = 5)
-    # might have issues here
 
     return render_template('user_projects.html', projects = projects, user = user)
 
 
 
-upload_folder = os.path.join('portfoliocraft', 'static', 'resumes')
 
-app.config['UPLOAD'] = upload_folder
 
 @users.route('/resume', methods=['GET', 'POST'])
+@login_required
 def upload_file():
-    print(os.getcwd())
+
+    user = User.query.filter_by(username = current_user.username).first()
 
     if request.method == 'POST':
         file = request.files['img']
         filename = secure_filename(file.filename)
-        file.save(os.path.join(app.config['UPLOAD'], filename))
+        file.save(os.path.join(upload_folder, filename))
         img = filename
+
+        user.resume = img
+        db.session.commit()
+
         return render_template('resume.html', img=img)
+        
     return render_template('resume.html')
+    # need form = form in render once figured out
+
+

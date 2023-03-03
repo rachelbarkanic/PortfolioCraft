@@ -13,6 +13,9 @@ class User(db.Model, UserMixin):
 
     id = db.Column(db.Integer, autoincrement = True, primary_key = True)
     profile_image = db.Column(db.String(255), nullable = False, default = 'default_profile.png')
+
+    resume = db.Column(db.String(255), nullable = False, default = 'default_resume.png')
+    
     first_name = db.Column(db.String(255), nullable = False, index=True)
     last_name = db.Column(db.String(255), nullable = False, index=True)
     username = db.Column(db.String(255), unique = True, nullable = False, index=True)
@@ -48,12 +51,10 @@ class Project(db.Model):
     demo_link = db.Column(db.String(255), nullable = False)
     github_link = db.Column(db.String(255), nullable = False)
 
-    
 
-    def __init__(self, title, description, screenshot, demo_link, github_link, user_id):
+    def __init__(self, title, description, demo_link, github_link, user_id):
         self.title = title
         self.description = description
-        self.screenshot = screenshot
         self.demo_link = demo_link
         self.github_link = github_link
         self.user_id = user_id
