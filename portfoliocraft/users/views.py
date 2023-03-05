@@ -25,8 +25,10 @@ def register():
 
         db.session.add(user)
         db.session.commit()
-        flash('Thanks for registering! Now you can log in!')
+        flash('Thanks for registering. Please log in!')
         return redirect(url_for('users.login'))
+    else:
+        flash('Something went wrong, please try again!')
 
     return render_template('register.html', form = form)
 
@@ -47,8 +49,9 @@ def login():
                 next = url_for('core.index')
 
             return redirect(next)
+
         else:
-            flash('Something went wrong, please try again!')
+            flash('Invalid email or password, please try again!')
             return redirect(url_for('users.login'))
 
     return render_template('login.html', form = form)
@@ -84,6 +87,7 @@ def account():
         user.last_name = form.last_name.data
         user.username = form.username.data
         user.email = form.email.data
+
         db.session.commit()
         flash('Your Account Information Has Been Updated!')
         return redirect(url_for('users.account'))

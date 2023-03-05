@@ -6,7 +6,7 @@
     <h1>All Projects</h1>
 </div>
 
-<div align="center" class="container">
+<div class="flex-container index" align="center">
     {% for project in projects.items %}
     <div class="card text-center" style="width: 18rem; background-color: #264653;">
         <img class="card-img-top" src="{{url_for('static', filename = 'screenshots/' +project.screenshot)}}" alt="project_image">
