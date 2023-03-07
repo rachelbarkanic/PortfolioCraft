@@ -1,6 +1,6 @@
 from flask_wtf import FlaskForm
 from wtforms import StringField, PasswordField, SubmitField
-from wtforms.validators import DataRequired, Email, EqualTo, InputRequired
+from wtforms.validators import DataRequired, Email, EqualTo, InputRequired, ValidationError
 from wtforms import ValidationError
 from flask_wtf.file import FileField, FileAllowed
 
@@ -24,15 +24,6 @@ class RegistrationForm(FlaskForm):
     pass_confirm = PasswordField('Confirm Password', validators=[InputRequired()])
     submit = SubmitField('Create User')
 
-    def validate_email(self, field):
-        if User.query.filter_by(email = field.data).first():
-            raise ValidationError('This email is already being used, try another!')
-
-            # put these in views instead
-    
-    def validate_username(self, field):
-        if User.query.filter_by(username = field.data).first():
-            raise ValidationError('This username is already being used')
 
 
 
@@ -46,13 +37,13 @@ class UpdateUserForm(FlaskForm):
     submit = SubmitField('Update User Info')
 
 
-    # def validate_email(self, email):
-    #     if User.query.filter_by(email = self.email.data).first():
-    #         raise ValidationError('This email is already being used, try another!')
+    def validate_email(self, field):
+        if User.query.filter_by(email = field.data).first():
+            raise ValidationError('This email is already being used, try another!')
     
-    # def validate_username(self, username):
-    #     if User.query.filter_by(username = self.username.data).first():
-    #         raise ValidationError('This username is already being used, try again!')
+    def validate_username(self, field):
+        if User.query.filter_by(username=field.data).first():
+            raise ValidationError('This username is already being used, try again!')
 
 
 class ResumeForm(FlaskForm):

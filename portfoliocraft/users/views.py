@@ -17,18 +17,26 @@ def register():
     form = RegistrationForm()
     
     if form.validate_on_submit():
-        user = User(first_name = form.first_name.data,
+        existing_email = User.query.filter_by(email=form.email.data).first()
+        existing_username = User.query.filter_by(username=form.username.data).first()
+        
+        if existing_username:
+            flash('that username already exists, try another')
+            return render_template('register.html', form = form)
+        elif existing_email:
+            flash('that email already exists, try another')
+            return render_template('register.html', form = form)
+
+        else:
+            user = User(first_name = form.first_name.data,
                     last_name = form.last_name.data,
                     username=form.username.data,
                     email=form.email.data,
                     password=form.password.data)
-
-        db.session.add(user)
-        db.session.commit()
-        flash('Thanks for registering. Please log in!')
-        return redirect(url_for('users.login'))
-    else:
-        flash('Something went wrong, please try again!')
+            db.session.add(user)
+            db.session.commit()
+            flash('Thanks for registering. Please log in!')
+            return redirect(url_for('users.login'))
 
     return render_template('register.html', form = form)
 
@@ -134,7 +142,7 @@ def upload_file():
         return render_template('resume.html', img=img)
         
     return render_template('resume.html')
-    # need form = form in render once figured out
+
 
 @users.route('/resume/<int:user_id>')
 def view_resume(user_id):

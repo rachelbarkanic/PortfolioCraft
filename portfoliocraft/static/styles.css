@@ -1,3 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Tilt+Neon&display=swap');
+
+
 .profile-pic {
     height: 300px;
     width: 300px;
@@ -9,7 +13,7 @@
 }
 
 body {
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    font-family: 'Tilt Neon', cursive;
     background-color: #e9c46a;
     color: #2a9d8f;
 }
@@ -18,8 +22,13 @@ body {
     background-color: #e9c46a;
 }
 
+.navbar {
+    font-family: 'Tilt Neon', cursive;
+}
+
 .nav-link {
     color: #2a9d8f;
+    font-family: 'Tilt Neon', cursive;
 }
 
 .nav-link:hover {

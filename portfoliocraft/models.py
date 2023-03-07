@@ -37,6 +37,10 @@ class User(db.Model, UserMixin):
 
     def __repr__(self):
         return f'Username {self.username}'
+        
+
+
+
 
 class Project(db.Model):
 
