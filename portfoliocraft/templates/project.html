@@ -5,7 +5,7 @@
 <div class="jumbotron text-center">
     <h1>{{ project.title }}</h1>
     
-    <h2>Created By: {{ project.author.username }}</h2>
+    <h2>Created By: <a href=" {{url_for('users.user_projects', username = project.author.username)}}" class="btn btn-primary">{{ project.author.username }}</a></h2>
     <br>
     <img id="project-screenshot" src="{{url_for('static', filename = 'screenshots/' +project.screenshot)}}" alt="screenshot">
     <br><br><br>
